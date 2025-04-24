@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Manrope-Bold.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Light.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Medium.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-Regular.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Manrope-SemiBold.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Merienda-Bold.ttf",
+      "sha1": "2bd9115fd6058f7fe1c72b6be29fea9d8780e913"
+    },
+    {
+      "path": "src/assets/fonts/Merienda-Medium.ttf",
+      "sha1": "ade23b955296b96f757fab94de3bc793695166e9"
+    },
+    {
+      "path": "src/assets/fonts/Merienda-Regular.ttf",
+      "sha1": "b7e33ae3966448c2c65e9b3554306a5269fe155a"
+    },
+    {
+      "path": "src/assets/fonts/Merienda-SemiBold.ttf",
+      "sha1": "590d52f719278cf2da4f05d3f8f744c740f04c69"
+    }
+  ]
+}
