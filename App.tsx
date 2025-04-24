@@ -14,8 +14,8 @@ import {
   NoInternetFullScreen,
   refFullScreenProgress, SideDrawerMenu, TopTabEnum,
 } from '@/component';
-import {AppNavigator} from '@/navigation/AppNavigation';
-import {initHttpClient} from '@/core';
+import { AppNavigator, Routes } from "@/navigation/AppNavigation";
+import { initHttpClient, Storage } from "@/core";
 import {BASE_URL} from '@/api';
 import {Provider} from 'react-redux';
 import { actions, store } from "@/redux/root.store";
@@ -24,9 +24,12 @@ import {utils} from '@/utils/Utils';
 export const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [selectedTab, setSelectedTab] = useState(TopTabEnum.Home);
+
   useEffect(() => {
     initHttpClient(BASE_URL);
   }, []);
+
+
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
@@ -56,7 +59,9 @@ export const App: React.FC = () => {
               }}
               isShowAttention={false}
             />
-              <AppNavigator onRouteChange={() => {}} />
+              <AppNavigator onRouteChange={(route) => {
+                console.log("route", route);
+              }} />
           </SideDrawerMenu>
 
           <FullScreenProgress ref={refFullScreenProgress} />

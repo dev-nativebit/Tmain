@@ -76,6 +76,19 @@ export const LoginAgainThunkCall = dispatchable(() => {
   };
 });
 
+export const ClearReduxThunkCall = dispatchable(() => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+        //Dispatch to store in to redux
+        dispatch(loginActions.UserDetail(undefined));
+      return getDefaultError('LoginAgainThunkCall');
+    } catch (e) {
+      //Dispatch to fail the response
+      return getDefaultError(e, 'CATCH LoginAgainThunkCall');
+    }
+  };
+});
+
 // export const forceUpdateThunkCall = dispatchable((device_type:string)=> {
 //   return async (dispatch:Dispatch<Action>) =>{
 //     try {

@@ -6,7 +6,7 @@ import {DeviceHelper} from '@/helper';
 import {fonts} from '@/style';
 import {navigate, reset, Routes} from '@/navigation/AppNavigation';
 import {Storage} from '@/core/Storage';
-import {RootState, useAppSelector} from '@/redux/root.store';
+import {actions, RootState, useAppSelector} from '@/redux/root.store';
 import { UserModel} from '@/model';
 import {ImageSourcePropType} from 'react-native';
 import {UserDetailDto} from "@/dtos";
@@ -42,7 +42,9 @@ export const SideMenu: React.FC<DeleteDocumentModelProps> = ({
 
 
   const handelOnLogoutPress = async () =>{
+    setIsVisibleLogout(false);
     await Storage.logout()
+    await actions.ClearReduxThunkCallActions()
     reset({
       screenName:Routes.Login
     })
