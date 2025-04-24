@@ -83,7 +83,7 @@ export const LoginScreen: React.FC = () => {
       statusBarColor={colors.white}>
       <Box flex={1} backgroundColor={'white'}>
         <CustomKeyboardAwareScrollView>
-          <Box  alignItems={'center'}>
+          <Box alignItems={'center'}>
             <Image
               source={Images.logo}
               marginTop={'mes'}
@@ -96,9 +96,12 @@ export const LoginScreen: React.FC = () => {
               alignSelf={'center'}
               justifyContent={'center'}
               marginTop={'m'}
-              flexDirection={'row'}
-            >
-              <Box height={2} width={DeviceHelper.calculateWidthRatio(40)} backgroundColor={'primary'} />
+              flexDirection={'row'}>
+              <Box
+                height={2}
+                width={DeviceHelper.calculateWidthRatio(40)}
+                backgroundColor={'primary'}
+              />
               <Text
                 fontFamily={fonts.Merienda_bold}
                 fontSize={23}
@@ -106,14 +109,17 @@ export const LoginScreen: React.FC = () => {
                 textAlign={'center'}
                 paddingHorizontal={'sr'}
                 style={{
-                  borderWidth:2,
-                  borderRadius:20,
-                  borderColor:colors.primary
-                }}
-              >
+                  borderWidth: 2,
+                  borderRadius: 20,
+                  borderColor: colors.primary,
+                }}>
                 {'The Future of Tool Access'}
               </Text>
-              <Box height={2} width={DeviceHelper.calculateWidthRatio(40)} backgroundColor={'primary'}/>
+              <Box
+                height={2}
+                width={DeviceHelper.calculateWidthRatio(40)}
+                backgroundColor={'primary'}
+              />
             </Box>
           </Box>
           <Text
@@ -121,8 +127,7 @@ export const LoginScreen: React.FC = () => {
             marginTop={'el'}
             fontFamily={fonts.medium}
             fontSize={23}
-            color={'black'}
-          >
+            color={'black'}>
             {'Login Details'}
           </Text>
           <Box marginTop={'lm'}>
@@ -138,18 +143,16 @@ export const LoginScreen: React.FC = () => {
           </Box>
         </CustomKeyboardAwareScrollView>
       </Box>
-      {
-        !isKeyboardVisible &&(
-          <Box position={'absolute'} bottom={-4} flex={1}>
-            <Image
-              source={Images.bottom_curve}
-              width={DeviceHelper.width()}
-              resizeMode={'stretch'}
-              tintColor={'#f17616'}
-            />
-          </Box>
-        )
-      }
+      {!isKeyboardVisible && (
+        <Box position={'absolute'} bottom={-4} flex={1}>
+          <Image
+            source={Images.bottom_curve}
+            width={DeviceHelper.width()}
+            resizeMode={'stretch'}
+            tintColor={'#f17616'}
+          />
+        </Box>
+      )}
     </Screen>
   );
 };

@@ -2,11 +2,14 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {
   Box,
   DashboardCard,
-  hideFullScreenProgress, Pressable,
-  Screen, showFullScreenProgress,
-  StatusBarType, Text,
+  hideFullScreenProgress,
+  Pressable,
+  Screen,
+  showFullScreenProgress,
+  StatusBarType,
+  Text,
 } from '@/component';
-import { SaveTagValueApiParams, GetRequestListApiParams } from "@/api";
+import {GetRequestListApiParams, SaveTagValueApiParams} from '@/api';
 import {actions, RootState, useAppSelector} from '@/redux/root.store';
 import {RequestList, RequestModel, TagsModel} from '@/model';
 import {DeviceHelper} from '@/helper';
@@ -16,9 +19,11 @@ import {RequestDto, TagsDto} from '@/dtos';
 import {fonts} from '@/style';
 
 export const DashboardScreen: React.FC = () => {
-  const requestListResult = useAppSelector((state: RootState) => state.requestDetail.requestList);
+  const requestListResult = useAppSelector(
+    (state: RootState) => state.requestDetail.requestList,
+  );
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('Input');
 
   useEffect(() => {
     callApi();
@@ -35,9 +40,7 @@ export const DashboardScreen: React.FC = () => {
 
   const tagsData = useMemo(() => {
     if (requestListResult?.isSuccess) {
-      const data =  requestListResult.getValue();
-      setSelectedFilter(data?.groupList[0] ? data?.groupList[0] :'')
-      return data;
+      return requestListResult.getValue();
     }
     return new TagsModel({} as TagsDto);
   }, [requestListResult]);
@@ -50,44 +53,45 @@ export const DashboardScreen: React.FC = () => {
     }, 1000);
   }, []);
 
-  const saveTagValueApiCall = (item:RequestModel) =>{
-    actions.updateItemListThunkCallActions(
-      tagsData,
-      parseInt(item.value) > 0 ? '0' : '1',
-      item.monitorId
-    ).then()
+  const saveTagValueApiCall = (item: RequestModel) => {
+    actions
+      .updateItemListThunkCallActions(
+        tagsData,
+        parseInt(item.value) > 0 ? '0' : '1',
+        item.monitorId,
+      )
+      .then();
 
-    const params:SaveTagValueApiParams ={
+    const params: SaveTagValueApiParams = {
       monitorId: item.monitorId.toString(),
-      tagValue:parseInt(item.value) > 0 ? '0' : '1',
-    }
-    showFullScreenProgress()
+      tagValue: parseInt(item.value) > 0 ? '0' : '1',
+    };
+    showFullScreenProgress();
     actions.saveTagValueApiThunkCallActions(params).then(value => {
-      hideFullScreenProgress()
-      if (value.isSuccess){
+      hideFullScreenProgress();
+      if (value.isSuccess) {
         // callApi()
       }
-    })
-  }
+    });
+  };
 
   const requestList = useMemo(() => {
     if (requestListResult?.isSuccess) {
-      const data = requestListResult.getValue().data
-      if (selectedFilter){
-        const tempSearchData:any[] =[]
+      const data = requestListResult.getValue().data;
+      if (selectedFilter) {
+        const tempSearchData: any[] = [];
         data.items.map(item => {
-          if (selectedFilter === item.group_name){
-            tempSearchData.push(item.getDto())
+          if (selectedFilter === item.group_name) {
+            tempSearchData.push(item.getDto());
           }
-        })
-        return new RequestList(tempSearchData as RequestDto[])
-      }else {
+        });
+        return new RequestList(tempSearchData as RequestDto[]);
+      } else {
         return data;
       }
     }
     return new RequestList();
-  }, [requestListResult,selectedFilter]);
-
+  }, [requestListResult, selectedFilter]);
 
   return (
     <Screen backgroundColor={'white'} statusBarType={StatusBarType.Dark}>
@@ -96,10 +100,7 @@ export const DashboardScreen: React.FC = () => {
         flexDirection={'row'}
         alignItems={'center'}
         justifyContent={'center'}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {tagsData?.groupList?.map((item, index) => (
             <Pressable
               key={index}
@@ -117,7 +118,7 @@ export const DashboardScreen: React.FC = () => {
               <Text
                 fontSize={15}
                 fontFamily={fonts.medium}
-                color={selectedFilter === item ? 'white' :'primaryColor1'}
+                color={selectedFilter === item ? 'white' : 'primaryColor1'}
                 paddingHorizontal={'ssr'}>
                 {item}
               </Text>
@@ -138,7 +139,7 @@ export const DashboardScreen: React.FC = () => {
             return (
               <DashboardCard
                 onPress={() => {
-                  saveTagValueApiCall(item)
+                  saveTagValueApiCall(item);
                 }}
                 item={item}
               />
