@@ -14,8 +14,7 @@ import {Storage} from '@/core';
 import {DeviceHelper} from '@/helper';
 import {SvgIcon} from '@/assets/SvgIcon';
 import {FlatList, RefreshControl} from 'react-native';
-import { goBack, navigate, reset, Routes } from "@/navigation/AppNavigation";
-import { RejectNotesIDs } from "@/customFormGenerator";
+import {  reset, Routes } from "@/navigation/AppNavigation";
 
 export const DashboardScreen: React.FC = () => {
   const requestListResult = useAppSelector(
@@ -80,16 +79,16 @@ export const DashboardScreen: React.FC = () => {
     })
   }
 
-
+  console.log(DeviceHelper.calculateFontSize(15));
 
   return (
     <Screen backgroundColor={'white'} statusBarType={StatusBarType.Dark}>
-      <Header
-        onDrawerPress={() => {}}
-        title={'Dashboard'}
-        isShowAttention={true}
-        onUserPress={handelOnLogoutPress}
-      />
+      {/*<Header*/}
+      {/*  onDrawerPress={() => {}}*/}
+      {/*  title={'Dashboard'}*/}
+      {/*  isShowAttention={true}*/}
+      {/*  onUserPress={handelOnLogoutPress}*/}
+      {/*/>*/}
 
       <Box flex={1}>
         <FlatList

@@ -6657,6 +6657,13 @@ react-native-device-info@^14.0.4:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-14.0.4.tgz#56b24ace9ff29a66bdfc667209086421ed6cfdce"
   integrity sha512-NX0wMAknSDBeFnEnSFQ8kkAcQrFHrG4Cl0mVjoD+0++iaKrOupiGpBXqs8xR0SeJyPC5zpdPl4h/SaBGly6UxA==
 
+react-native-drawer-layout@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-3.3.2.tgz#d6640940fa1daa3e07edf5e8223b143220a568fe"
+  integrity sha512-Xr2qNT+v6lbVlWSuijx9D6p1NX6d2rE9wa7/Vpg9wy9EtSZGRP71F8XTkug9kgG+KlsxNcdWhqMFm/0lbPmlpQ==
+  dependencies:
+    use-latest-callback "^0.2.1"
+
 react-native-gesture-handler@2.20.1:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.20.1.tgz#04743f7064d6ad7d0f66ec0d71c35eeee8c89a97"

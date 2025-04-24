@@ -5,6 +5,8 @@ import { DeviceHelper } from '@/helper/DeviceHelper';
 import { Text } from '@/component/Text';
 import { fonts, Theme } from '@/style';
 import { ResponsiveValue } from '@shopify/restyle';
+import {Image} from '@/component/Image';
+import {Images} from '@/assets';
 
 export interface AuthTitleBarProps {
 	title:string,
@@ -22,10 +24,10 @@ export const AuthTitleBar:React.FC<AuthTitleBarProps> = ({
 	return (
 		<Box>
 			<Box marginTop={marginTop}>
-				<SvgIcon
+				<Image
 					height={DeviceHelper.calculateHeightRatio(50)}
 					width={DeviceHelper.calculateWidthRatio(50)}
-					name={'logo'} />
+					source={Images.logo} />
 			</Box>
 			<Box marginTop={'m'} justifyContent={'center'} alignItems={'center'}>
 				<Text

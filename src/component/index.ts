@@ -30,3 +30,4 @@ export * from './TabAnimationView';
 export * from './SelectImageOption';
 export * from './Dashboard';
 export * from './ResignBottomSheet';
+export * from './Drawer';
