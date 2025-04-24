@@ -1,11 +1,11 @@
 import {Result} from '@/core';
-import { RequestList } from "@/model";
+import { TagsModel} from '@/model';
 import {createSlice} from '@reduxjs/toolkit';
 import { REQUEST } from "@/redux/slice/Types";
 import RequestReducer from "@/redux/reducer/RequestReducer";
 
 export interface RequestSliceType {
-  requestList?: Result<RequestList>;
+  requestList?: Result<TagsModel>;
   approveRequest?: Result<string>;
   // forceUpdate?:Result<ForceUpdateModel>
 }

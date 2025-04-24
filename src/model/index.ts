@@ -6,3 +6,4 @@ export * from './LoginModel';
 export * from './UserModel';
 export * from './RequestModel';
 export * from './RequestList';
+export * from './TagsModel';

@@ -1,12 +1,12 @@
 import {Result} from '@/core';
 import {PayloadAction} from '@reduxjs/toolkit';
-import { RequestList } from "@/model";
+import { TagsModel} from '@/model';
 import { RequestSliceType } from "@/redux/slice/RequestSlice";
 
 export default {
   'requestList': (
     state: RequestSliceType,
-    action: PayloadAction<Result<RequestList>>,
+    action: PayloadAction<Result<TagsModel>>,
   ) => {
     state.requestList = action.payload;
   },

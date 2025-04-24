@@ -41,4 +41,7 @@ export class RequestModel extends Entity<RequestDto>{
   get boxId(): number{
     return this.dto?.boxId ?? 0
   }
+  get group_name(): string{
+    return this.dto?.group_name ?? ''
+  }
 }

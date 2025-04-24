@@ -47,7 +47,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
 			borderRadius={20}
 			flexDirection="row"
 			alignItems="center"
-			width={47}
+			width={DeviceHelper.calculateWidthRatio(47)}
 			overflow="hidden">
 			<Animated.View style={[animatedStyles]}>
 				<Box

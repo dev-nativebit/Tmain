@@ -29,7 +29,7 @@ export const DashboardCard:React.FC<DashboardCardProps> = ({onPress,item}:Dashbo
          <ToggleButton onPress={onPress} isOn={parseInt(item.value) > 0} />
        </Box>
           <Text
-            fontSize={DeviceHelper.calculateFontSize(14)}
+            fontSize={DeviceHelper.calculateFontSize(13.5)}
             color={'eerieBlack'}
             fontFamily={fonts.Merienda_bold}
             textAlign={'center'}

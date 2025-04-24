@@ -3,7 +3,7 @@ import { saveTagValueApi, SaveTagValueApiParams, getRequestListApi, GetRequestLi
 import {Dispatch} from 'react';
 import {Action} from 'redux-saga';
 import {getDefaultError, Result} from '@/core';
-import {RequestList} from '@/model';
+import {RequestList, TagsModel} from '@/model';
 import {RequestDto} from '@/dtos';
 import {ToastAndroid} from 'react-native';
 import {requestActions} from '@/redux/slice/RequestSlice';
@@ -17,7 +17,7 @@ export const getRequestListApiThunkCall = dispatchable((params: GetRequestListAp
 
         if (response.isSuccess) {
           //Parse dto from api response top model
-          const dataModel = new RequestList(response.data.data as RequestDto[]);
+          const dataModel = new TagsModel(response.data as RequestDto[]);
           // await LoginAgainThunkCall();
           //Wrap with result class
           const resultDataModel = Result.ok(dataModel);
@@ -70,24 +70,27 @@ export const saveTagValueApiThunkCall = dispatchable((params: SaveTagValueApiPar
   },
 );
 
-export const updateItemListThunkCall = dispatchable((itemList:RequestList,value:string,id:number) => {
+export const updateItemListThunkCall = dispatchable((itemList:TagsModel,value:string,id:number) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
       dispatch(requestActions.requestList(Result.waiting()));
-      const indexInItem = itemList.findIndex(
+      const indexInItem = itemList.data.findIndex(
         item => item.id === id,
       );
 
       if (indexInItem > -1){
 
-        const inItemDTOS = itemList.items.map(
+        const inItemDTOS = itemList.data.items.map(
           inItem => {
             return inItem.getDto();
           },
         );
         inItemDTOS[indexInItem].value = value
         //Parse dto from api response top model
-        const dataModel = new RequestList(inItemDTOS);
+        const dataModel = new TagsModel({
+          data:inItemDTOS,
+          groupList:itemList.groupList
+        });
         //Wrap with result class
         const resultDataModel = Result.ok(dataModel);
         //Dispatch to store in to redux

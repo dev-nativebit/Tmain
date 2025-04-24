@@ -1,10 +1,9 @@
-import { LoginDto, RequestDto } from "@/dtos";
+import {LoginDto, TagsDto} from '@/dtos';
 
 export interface ResultCommonInterfaces {
   message: string;
   success: number | boolean;
-  data: LoginDto
-    | RequestDto[]
+  data: LoginDto | TagsDto;
   // current_page: number;
   // total_pages: number;
   // per_page_record: number;

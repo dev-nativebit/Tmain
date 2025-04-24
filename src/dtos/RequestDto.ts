@@ -1,3 +1,8 @@
+export interface TagsDto{
+  data:RequestDto[]
+  groupList:string[]
+}
+
 export interface RequestDto{
   com: number
   string_point: number
@@ -11,4 +16,5 @@ export interface RequestDto{
   templateId: number
   value: string
   boxId: number
+  group_name: string
 }

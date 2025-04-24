@@ -2,25 +2,23 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {
   Box,
   DashboardCard,
-  Header, hideFullScreenProgress,
+  hideFullScreenProgress, Pressable,
   Screen, showFullScreenProgress,
-  StatusBarType,
-  TabButtons
-} from "@/component";
+  StatusBarType, Text,
+} from '@/component';
 import { SaveTagValueApiParams, GetRequestListApiParams } from "@/api";
 import {actions, RootState, useAppSelector} from '@/redux/root.store';
-import { RequestList, RequestModel } from "@/model";
-import {Storage} from '@/core';
+import {RequestList, RequestModel, TagsModel} from '@/model';
 import {DeviceHelper} from '@/helper';
 import {SvgIcon} from '@/assets/SvgIcon';
-import {FlatList, RefreshControl} from 'react-native';
-import {  reset, Routes } from "@/navigation/AppNavigation";
+import {FlatList, RefreshControl, ScrollView} from 'react-native';
+import {RequestDto, TagsDto} from '@/dtos';
+import {fonts} from '@/style';
 
 export const DashboardScreen: React.FC = () => {
-  const requestListResult = useAppSelector(
-    (state: RootState) => state.requestDetail.requestList,
-  );
-  const [refreshing, setRefreshing] = React.useState(false);
+  const requestListResult = useAppSelector((state: RootState) => state.requestDetail.requestList);
+  const [refreshing, setRefreshing] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState('');
 
   useEffect(() => {
     callApi();
@@ -35,11 +33,13 @@ export const DashboardScreen: React.FC = () => {
     actions.getRequestListApiThunkCallActions(params).then();
   };
 
-  const requestList = useMemo(() => {
+  const tagsData = useMemo(() => {
     if (requestListResult?.isSuccess) {
-      return requestListResult.getValue();
+      const data =  requestListResult.getValue();
+      setSelectedFilter(data?.groupList[0] ? data?.groupList[0] :'')
+      return data;
     }
-    return new RequestList();
+    return new TagsModel({} as TagsDto);
   }, [requestListResult]);
 
   const onRefresh = React.useCallback(async () => {
@@ -50,18 +50,9 @@ export const DashboardScreen: React.FC = () => {
     }, 1000);
   }, []);
 
-  const handelOnLogoutPress = async () => {
-    // actions.logoutThunkCallActions().then(async () => {
-    await Storage.logout();
-    reset({
-      screenName: Routes.Login,
-    });
-    // });
-  };
-
   const saveTagValueApiCall = (item:RequestModel) =>{
     actions.updateItemListThunkCallActions(
-      requestList,
+      tagsData,
       parseInt(item.value) > 0 ? '0' : '1',
       item.monitorId
     ).then()
@@ -79,17 +70,61 @@ export const DashboardScreen: React.FC = () => {
     })
   }
 
-  console.log(DeviceHelper.calculateFontSize(15));
+  const requestList = useMemo(() => {
+    if (requestListResult?.isSuccess) {
+      const data = requestListResult.getValue().data
+      if (selectedFilter){
+        const tempSearchData:any[] =[]
+        data.items.map(item => {
+          if (selectedFilter === item.group_name){
+            tempSearchData.push(item.getDto())
+          }
+        })
+        return new RequestList(tempSearchData as RequestDto[])
+      }else {
+        return data;
+      }
+    }
+    return new RequestList();
+  }, [requestListResult,selectedFilter]);
+
 
   return (
     <Screen backgroundColor={'white'} statusBarType={StatusBarType.Dark}>
-      {/*<Header*/}
-      {/*  onDrawerPress={() => {}}*/}
-      {/*  title={'Dashboard'}*/}
-      {/*  isShowAttention={true}*/}
-      {/*  onUserPress={handelOnLogoutPress}*/}
-      {/*/>*/}
-
+      <Box
+        marginTop={'r'}
+        flexDirection={'row'}
+        alignItems={'center'}
+        justifyContent={'center'}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          {tagsData?.groupList?.map((item, index) => (
+            <Pressable
+              key={index}
+              onPress={() => {
+                setSelectedFilter(item);
+              }}
+              borderWidth={1.2}
+              borderColor={selectedFilter === item ? 'primary' : 'grey'}
+              backgroundColor={selectedFilter === item ? 'primary' : 'white'}
+              paddingVertical={'s'}
+              marginStart={'s'}
+              marginEnd={index + 1 < tagsData?.groupList?.length ? 'none' : 's'}
+              borderRadius={8}
+              alignItems={'center'}>
+              <Text
+                fontSize={15}
+                fontFamily={fonts.medium}
+                color={selectedFilter === item ? 'white' :'primaryColor1'}
+                paddingHorizontal={'ssr'}>
+                {item}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </Box>
       <Box flex={1}>
         <FlatList
           data={requestList.items}
